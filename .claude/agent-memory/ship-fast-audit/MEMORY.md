@@ -1,0 +1,1 @@
+- [ChapitreAI/Chaptry Audit 2026-05-13](project_chaptryai_audit.md) — Full launch-readiness audit: what's built, key bugs, pro-plan crash risk, Whisper FAQ lie

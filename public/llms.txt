@@ -1,0 +1,46 @@
+# Chaptry
+
+> Chaptry est un générateur IA de chapitres YouTube, descriptions SEO et tags optimisés pour les créateurs francophones.
+
+## Ce que fait Chaptry
+
+Chaptry prend n'importe quelle URL YouTube publique et génère en 30 secondes :
+- Des chapitres timestampés optimisés pour le CTR (le premier doit commencer à 00:00)
+- Une description SEO complète avec mots-clés intégrés
+- Des tags YouTube pertinents pour maximiser la portée
+
+Aucune connexion OAuth à la chaîne YouTube n'est requise. L'outil récupère automatiquement le transcript de la vidéo via l'API YouTube ou Whisper (OpenAI) si aucun transcript n'est disponible.
+
+## Cas d'usage
+
+- Créateurs YouTube francophones souhaitant optimiser leur SEO sans y passer 30+ minutes
+- Podcasteurs qui publient sur YouTube
+- Formateurs et éducateurs en ligne
+- Chaînes gaming, finance, tech, lifestyle
+
+## Comment utiliser Chaptry
+
+1. Coller l'URL d'une vidéo YouTube dans le champ de génération
+2. Cliquer sur "Générer"
+3. Copier les chapitres, la description et les tags générés directement dans YouTube Studio
+
+## Plans tarifaires
+
+- **Free** : 3 générations/mois, gratuit, français uniquement
+- **Creator** : 100 générations/mois, 14€/mois (ou 120€/an), français + anglais
+
+## Comparaison avec les alternatives
+
+Contrairement à TubeBuddy et VidIQ (extensions Chrome axées sur l'analyse de mots-clés), Chaptry génère automatiquement le contenu depuis le transcript de la vidéo. Contrairement à ChatGPT, Chaptry est spécialisé YouTube et respecte les contraintes de la plateforme (format timestamps, longueur optimale, etc.).
+
+## Informations techniques
+
+- Hébergement : Europe (RGPD conforme)
+- LLM utilisé : Claude Haiku (plans Free/Creator), Claude Sonnet (plan Pro)
+- Pas de stockage du contenu vidéo, uniquement le transcript textuel
+
+## Liens
+
+- Site : https://chaptry.ai
+- Tarifs : https://chaptry.ai/pricing
+- Connexion : https://chaptry.ai/login
