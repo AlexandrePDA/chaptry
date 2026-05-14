@@ -173,7 +173,7 @@ export default async function DashboardPage() {
                 : "Il te reste 1 génération ce mois."}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              Passe au Creator pour 100 vidéos/mois à 14€.
+              Passe au Creator (30 vidéos/mois à 14€) ou au Pro (150 vidéos/mois à 29€).
             </p>
           </div>
           <Link

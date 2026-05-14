@@ -817,7 +817,7 @@ export function HeroSection() {
           </div>
 
           {/* Results */}
-          <div className="px-5 md:px-8 py-6 min-h-[460px] md:min-h-[340px] overflow-hidden">
+          <div className="px-5 md:px-8 py-6 h-[460px] md:h-[340px] overflow-hidden">
             {(demoPhase === "idle" || demoPhase === "typing") && (
               <p className="text-sm text-muted-foreground">
                 Colle ton URL et génère en 30 secondes.

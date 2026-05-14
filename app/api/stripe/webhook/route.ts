@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/client";
 import { createAdminClient } from "@/lib/supabase/server";
 import type Stripe from "stripe";
+import { sendUpgradeEmail, sendCancellationEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -40,6 +41,9 @@ export async function POST(req: NextRequest) {
             stripe_subscription_id: session.subscription as string,
           })
           .eq("id", userId);
+
+        const email = session.customer_email ?? session.customer_details?.email;
+        if (email) sendUpgradeEmail(email, plan).catch(console.error);
         break;
       }
 
@@ -67,6 +71,11 @@ export async function POST(req: NextRequest) {
           .from("users")
           .update({ plan: "free", stripe_subscription_id: null })
           .eq("stripe_customer_id", customerId);
+
+        const customer = await stripe.customers.retrieve(customerId);
+        if (!customer.deleted && customer.email) {
+          sendCancellationEmail(customer.email).catch(console.error);
+        }
         break;
       }
     }

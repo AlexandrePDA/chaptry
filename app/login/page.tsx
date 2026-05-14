@@ -34,6 +34,7 @@ export default function LoginPage() {
         });
         if (error) throw error;
         if (data.session) {
+          fetch("/api/auth/welcome", { method: "POST" }).catch(() => {});
           router.push("/dashboard");
           router.refresh();
         } else {

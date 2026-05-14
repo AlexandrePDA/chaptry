@@ -49,7 +49,7 @@ const URL_ERROR_MESSAGES: Record<UrlValidationError, string> = {
 
 function validateUrl(raw: string): UrlValidationError | null {
   const s = raw.trim();
-  if (!s) return null;
+  if (!s) return "invalid";
   let parsed: URL;
   try {
     parsed = new URL(s);
@@ -243,7 +243,7 @@ export default function GeneratePage() {
           </div>
           <button
             type="submit"
-            disabled={loading || !url.trim()}
+            disabled={loading}
             className="rounded-xl bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
           >
             {loading ? "Génération..." : "Générer →"}
@@ -304,9 +304,9 @@ export default function GeneratePage() {
                       href="/pricing"
                       className="inline-flex items-center rounded-lg bg-amber-600 text-white px-4 py-2 text-sm font-semibold hover:bg-amber-700 transition-colors"
                     >
-                      Passer au Creator — 100 vidéos/mois →
+                      Voir les offres →
                     </Link>
-                    <span className="text-xs text-amber-600">14€/mois · sans engagement</span>
+                    <span className="text-xs text-amber-600">sans engagement</span>
                   </div>
                 </div>
               </div>
@@ -316,10 +316,9 @@ export default function GeneratePage() {
           {appError.type === "language" && (() => {
             const lang = appError.detectedLanguage;
             const plan = appError.plan;
-            // EN on free plan → upgrade possible
-            const isUpgradable = lang === "en" && plan === "free";
-            // Any other unsupported language (DE, ES, etc.)
-            const isUnsupported = lang !== "en";
+            const upgradeToCreator = lang === "en" && plan === "free";
+            const upgradeToPro = (lang === "de" || lang === "es") && (plan === "free" || plan === "creator");
+            const isUnsupported = !upgradeToCreator && !upgradeToPro;
 
             return (
               <div className="rounded-xl border-2 border-blue-200 bg-blue-50 p-6">
@@ -328,14 +327,14 @@ export default function GeneratePage() {
                     <GlobeIcon className="w-5 h-5 text-blue-600" />
                   </div>
                   <div className="flex-1">
-                    {isUpgradable && (
+                    {upgradeToCreator && (
                       <>
                         <h3 className="font-semibold text-blue-900 mb-1">
                           Vidéo en anglais — disponible sur le plan Creator
                         </h3>
                         <p className="text-sm text-blue-700 mb-4">
                           Le plan gratuit génère uniquement pour les vidéos en français.
-                          Passe au Creator pour débloquer la génération en anglais.
+                          Passe au Creator pour débloquer l&apos;anglais.
                         </p>
                         <div className="flex flex-wrap items-center gap-3">
                           <Link
@@ -353,20 +352,44 @@ export default function GeneratePage() {
                         </div>
                       </>
                     )}
+                    {upgradeToPro && (
+                      <>
+                        <h3 className="font-semibold text-blue-900 mb-1">
+                          Vidéo en {langLabel(lang)} — disponible sur le plan Pro
+                        </h3>
+                        <p className="text-sm text-blue-700 mb-4">
+                          L&apos;allemand et l&apos;espagnol sont disponibles sur le plan Pro (FR · EN · DE · ES).
+                        </p>
+                        <div className="flex flex-wrap items-center gap-3">
+                          <Link
+                            href="/pricing"
+                            className="inline-flex items-center rounded-lg bg-blue-600 text-white px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-colors"
+                          >
+                            Passer au Pro →
+                          </Link>
+                          <button
+                            onClick={() => { setAppError(null); setUrl(""); }}
+                            className="text-sm text-blue-600 hover:underline"
+                          >
+                            Essayer une vidéo en français
+                          </button>
+                        </div>
+                      </>
+                    )}
                     {isUnsupported && (
                       <>
                         <h3 className="font-semibold text-blue-900 mb-1">
                           Vidéo en {langLabel(lang)} — langue non supportée
                         </h3>
                         <p className="text-sm text-blue-700 mb-4">
-                          Chaptry supporte uniquement le français et l&apos;anglais pour l&apos;instant.
+                          Chaptry supporte le français, l&apos;anglais, l&apos;allemand et l&apos;espagnol.
                           Les vidéos en {langLabel(lang)} ne sont pas prises en charge.
                         </p>
                         <button
                           onClick={() => { setAppError(null); setUrl(""); }}
                           className="inline-flex items-center rounded-lg border border-blue-300 bg-white text-blue-700 px-4 py-2 text-sm font-medium hover:bg-blue-50 transition-colors"
                         >
-                          Essayer une vidéo en français ou anglais
+                          Essayer une autre vidéo
                         </button>
                       </>
                     )}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { buildFAQSchema, buildSoftwareAppSchema } from "@/lib/seo/schema";
 import { HeroSection } from "@/components/marketing/hero-section";
+import { LandingPricing } from "@/components/marketing/landing-pricing";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://chaptry.com";
 
@@ -215,94 +216,7 @@ export default function LandingPage() {
       {/* ── COMPARAISON ───────────────────────────────────────── */}
 
       {/* ── PRICING ───────────────────────────────────────────── */}
-      <section id="pricing" className="py-24 bg-white">
-        <div className="container max-w-5xl mx-auto px-4">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              Simple. Transparent. Pas de surprise.
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Améliore ta rentabilité avec Chaptry.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {/* Free */}
-            <div className="rounded-2xl border bg-white p-8 flex flex-col">
-              <div className="font-bold text-xl mb-1">Free</div>
-              <div className="mb-1">
-                <span className="text-4xl font-bold">0€</span>
-                <span className="text-base font-normal text-muted-foreground">
-                  /mois
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground mb-7">
-                Pour tester sans engagement
-              </p>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  "3 générations/mois",
-                  "Chapitres + Description + Tags",
-                  "Français uniquement",
-                  "Watermark dans la description",
-                ].map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm">
-                    <CheckIcon /> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/dashboard"
-                className="text-center rounded-lg py-3 text-sm font-semibold border hover:bg-muted transition-colors"
-              >
-                Commencer gratuitement
-              </Link>
-            </div>
-
-            {/* Creator */}
-            <div className="rounded-2xl border-2 border-primary shadow-lg ring-1 ring-primary/20 p-8 flex flex-col relative bg-white">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="rounded-full bg-primary text-primary-foreground text-xs font-semibold px-3 py-1">
-                  Recommandé
-                </span>
-              </div>
-              <div className="font-bold text-xl mb-1">Creator</div>
-              <div className="mb-1">
-                <span className="text-4xl font-bold">14€</span>
-                <span className="text-base font-normal text-muted-foreground">
-                  /mois
-                </span>
-              </div>
-              <div className="text-xs text-primary font-medium mb-2">
-                ou 10€/mois en annuel{" "}
-                <span className="font-semibold">(-29%)</span>
-              </div>
-              <p className="text-sm text-muted-foreground mb-7">
-                Pour les créateurs qui veulent scaler
-              </p>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  "100 générations/mois",
-                  "Français + Anglais",
-                  "Sans watermark",
-                  "Historique illimité",
-                  "Support prioritaire",
-                  "Modèle IA Creator (Claude Sonnet)",
-                ].map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm">
-                    <CheckIcon /> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/pricing"
-                className="text-center rounded-lg py-3 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Passer au Creator →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LandingPricing />
 
       {/* ── FAQ ───────────────────────────────────────────────── */}
       <section className="py-24 bg-muted/20">

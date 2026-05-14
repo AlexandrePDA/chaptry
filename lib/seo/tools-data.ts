@@ -302,7 +302,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     intro:
       "TubeBuddy est un outil puissant mais généraliste et cher. ChapitreAI est focalisé sur une seule chose : générer des chapitres et descriptions YouTube de qualité supérieure, rapidement, à moitié prix.",
     comparisonPoints: [
-      { feature: "Prix mensuel", us: "12€/mois", them: "24$/mois", winner: "us" },
+      { feature: "Prix mensuel", us: "14€/mois", them: "24$/mois", winner: "us" },
       { feature: "Qualité chapitres", us: "Excellente (IA spécialisée)", them: "Moyenne (template)", winner: "us" },
       { feature: "Génération description SEO", us: "Oui, complète", them: "Partielle", winner: "us" },
       { feature: "Connexion chaîne requise", us: "Non", them: "Oui", winner: "us" },
@@ -324,7 +324,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     intro:
       "VidIQ est le leader du marché sur la data YouTube. ChapitreAI est le champion sur la génération de contenu optimisé. Ils ne jouent pas dans la même catégorie.",
     comparisonPoints: [
-      { feature: "Prix d'entrée", us: "12€/mois", them: "17$/mois (limité)", winner: "us" },
+      { feature: "Prix d'entrée", us: "14€/mois", them: "17$/mois (limité)", winner: "us" },
       { feature: "Données YouTube Analytics", us: "Non", them: "Oui (fort)", winner: "them" },
       { feature: "Génération chapitres IA", us: "Oui (haute qualité)", them: "Non", winner: "us" },
       { feature: "Description SEO automatique", us: "Oui", them: "Non", winner: "us" },
@@ -364,7 +364,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     intro:
       "TubeBuddy est puissant mais coûteux et complexe. Si tu cherches une alternative focalisée sur la génération de chapitres et descriptions YouTube de haute qualité, voici notre comparatif.",
     comparisonPoints: [
-      { feature: "Prix", us: "12€/mois", them: "24-49$/mois", winner: "us" },
+      { feature: "Prix", us: "14€/mois", them: "24-49$/mois", winner: "us" },
       { feature: "Simplicité d'usage", us: "URL → résultat en 30s", them: "Complexe (70+ features)", winner: "us" },
       { feature: "Qualité chapitres", us: "Excellente", them: "Moyenne", winner: "us" },
       { feature: "Extension navigateur", us: "Non", them: "Oui", winner: "them" },

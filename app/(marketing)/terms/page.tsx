@@ -43,7 +43,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-base font-semibold text-foreground mb-3">6. Contact</h2>
-          <p><a href="mailto:contact@chaptry.com" className="text-primary">contact@chaptry.com</a></p>
+          <p><a href="mailto:dev.dakaprod@gmail.com" className="text-primary">dev.dakaprod@gmail.com</a></p>
         </section>
 
         <p className="text-xs">Dernière mise à jour : mai 2026</p>

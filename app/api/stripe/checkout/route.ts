@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createCheckoutSession } from "@/lib/stripe/client";
 
 const schema = z.object({
-  plan: z.enum(["creator"]),
+  plan: z.enum(["creator", "pro"]),
   billing: z.enum(["monthly", "yearly"]),
 });
 

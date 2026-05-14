@@ -39,16 +39,16 @@ function XIcon({ className }: { className?: string }) {
 
 export default function PricingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<"creator" | "pro" | null>(null);
   const router = useRouter();
 
-  async function handleCheckout() {
-    setLoading(true);
+  async function handleCheckout(plan: "creator" | "pro") {
+    setLoading(plan);
     try {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: "creator", billing }),
+        body: JSON.stringify({ plan, billing }),
       });
       if (res.status === 401) {
         router.push("/login");
@@ -57,12 +57,12 @@ export default function PricingPage() {
       const data = await res.json();
       if (data.url) window.location.href = data.url;
     } finally {
-      setLoading(false);
+      setLoading(null);
     }
   }
 
   return (
-    <div className="container max-w-4xl mx-auto px-4 py-16">
+    <div className="container max-w-5xl mx-auto px-4 py-16">
       <div className="text-center mb-16">
         <h1 className="text-3xl md:text-5xl font-bold mb-4">
           Simple. Transparent. Efficace.
@@ -84,7 +84,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-16">
+      <div className="grid md:grid-cols-3 gap-6 mb-16">
         {/* Free */}
         <div className="rounded-2xl border bg-card p-8 flex flex-col">
           <div className="font-bold text-2xl mb-1">Free</div>
@@ -105,9 +105,8 @@ export default function PricingPage() {
               { text: "Chapitres + Description + Tags", ok: true },
               { text: "Français uniquement", ok: true },
               { text: "Sans watermark", ok: false },
-              { text: "Historique des générations", ok: false },
-              { text: "Support prioritaire", ok: false },
-              { text: "Modèle IA Creator (Claude Sonnet)", ok: false },
+              { text: "Historique", ok: false },
+              { text: "Support email", ok: false },
             ].map((f) => (
               <li key={f.text} className="flex items-center gap-2.5 text-sm">
                 {f.ok ? (
@@ -133,7 +132,7 @@ export default function PricingPage() {
         {/* Creator */}
         <div className="rounded-2xl border-2 border-primary shadow-xl ring-2 ring-primary/20 p-8 flex flex-col relative bg-card">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary text-primary-foreground text-xs font-bold px-4 py-1">
-            RECOMMANDÉ
+            POPULAIRE
           </div>
 
           <div className="font-bold text-2xl mb-1">Creator</div>
@@ -149,21 +148,20 @@ export default function PricingPage() {
             </div>
           )}
           <div className="text-xs text-primary font-medium mb-4">
-            100 vidéos/mois
+            30 vidéos/mois
           </div>
           <p className="text-sm text-muted-foreground mb-6">
-            Pour les créateurs qui veulent scaler
+            Pour les créateurs actifs
           </p>
 
           <ul className="space-y-3 mb-8 flex-1">
             {[
-              "100 générations/mois",
+              "30 générations/mois",
               "Chapitres + Description + Tags",
               "Français + Anglais",
               "Sans watermark",
-              "Historique illimité",
-              "Support prioritaire",
-              "Modèle IA Creator (Claude Sonnet)",
+              "Historique 30 jours",
+              "Support email",
             ].map((f) => (
               <li key={f} className="flex items-center gap-2.5 text-sm">
                 <CheckIcon className="w-4 h-4 text-primary shrink-0" />
@@ -173,11 +171,61 @@ export default function PricingPage() {
           </ul>
 
           <button
-            onClick={handleCheckout}
-            disabled={loading}
+            onClick={() => handleCheckout("creator")}
+            disabled={loading !== null}
             className="text-center rounded-lg py-3 font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-60"
           >
-            {loading ? "Chargement..." : "Passer au Creator →"}
+            {loading === "creator" ? "Chargement..." : "Passer au Creator →"}
+          </button>
+          <p className="text-center text-xs text-muted-foreground mt-3">
+            Annulation en 1 clic · Sans engagement
+          </p>
+        </div>
+
+        {/* Pro */}
+        <div className="rounded-2xl border bg-card p-8 flex flex-col">
+          <div className="font-bold text-2xl mb-1">Pro</div>
+          <div className="flex items-end gap-1 mb-1">
+            <span className="text-4xl font-bold">
+              {billing === "monthly" ? "29€" : "20€"}
+            </span>
+            <span className="text-muted-foreground text-sm mb-1">/mois</span>
+          </div>
+          {billing === "yearly" && (
+            <div className="text-xs text-primary font-semibold mb-1">
+              240€/an · économise 108€
+            </div>
+          )}
+          <div className="text-xs text-muted-foreground font-medium mb-4">
+            150 vidéos/mois
+          </div>
+          <p className="text-sm text-muted-foreground mb-6">
+            Pour les créateurs qui scalent
+          </p>
+
+          <ul className="space-y-3 mb-8 flex-1">
+            {[
+              "150 générations/mois",
+              "Chapitres + Description + Tags",
+              "FR · EN · DE · ES",
+              "Sans watermark",
+              "Historique illimité",
+              "Support prioritaire",
+              "Modèle IA supérieur (Claude Sonnet)",
+            ].map((f) => (
+              <li key={f} className="flex items-center gap-2.5 text-sm">
+                <CheckIcon className="w-4 h-4 text-primary shrink-0" />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            onClick={() => handleCheckout("pro")}
+            disabled={loading !== null}
+            className="text-center rounded-lg py-3 font-semibold border hover:bg-muted transition-colors disabled:opacity-60"
+          >
+            {loading === "pro" ? "Chargement..." : "Passer au Pro →"}
           </button>
           <p className="text-center text-xs text-muted-foreground mt-3">
             Annulation en 1 clic · Sans engagement
@@ -194,7 +242,7 @@ export default function PricingPage() {
           {[
             {
               q: "Comment tester Chaptry avant de payer ?",
-              a: "Le plan gratuit inclut 3 générations par mois, sans carte bancaire. C'est suffisant pour tester la qualité sur tes propres vidéos avant de passer au Creator.",
+              a: "Le plan gratuit inclut 3 générations par mois, sans carte bancaire. C'est suffisant pour tester la qualité sur tes propres vidéos.",
             },
             {
               q: "Puis-je annuler à tout moment ?",
@@ -202,11 +250,11 @@ export default function PricingPage() {
             },
             {
               q: "Que se passe-t-il si j'atteins ma limite mensuelle ?",
-              a: "Les générations se réinitialisent le 1er de chaque mois. Sur le plan Free tu peux passer au Creator à tout moment pour continuer immédiatement.",
+              a: "Les générations se réinitialisent le 1er de chaque mois. Tu peux upgrader à tout moment pour continuer immédiatement.",
             },
             {
-              q: "Quelle est la différence entre les deux plans ?",
-              a: "Le plan Creator utilise Claude Sonnet, un modèle plus puissant qui génère des chapitres plus précis, des descriptions mieux structurées et des tags plus pertinents. Le plan Free utilise Claude Haiku, rapide et efficace pour la majorité des vidéos.",
+              q: "Quelle différence entre Creator et Pro ?",
+              a: "Creator utilise Claude Haiku (rapide, efficace pour FR et EN). Pro utilise Claude Sonnet, le modèle supérieur, avec 5x plus de générations, 4 langues (FR, EN, DE, ES) et un historique illimité.",
             },
           ].map((item) => (
             <div key={item.q} className="rounded-xl border p-6">

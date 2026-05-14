@@ -20,15 +20,6 @@ export default async function MarketingLayout({
               <span>Chaptry</span>
             </Link>
             <nav className="hidden md:flex items-center gap-8 text-sm">
-              <Link href="/tools/generateur-chapitres-youtube" className="text-muted-foreground hover:text-foreground transition-colors font-medium">
-                Chapitres
-              </Link>
-              <Link href="/tools/generateur-description-youtube" className="text-muted-foreground hover:text-foreground transition-colors font-medium">
-                Descriptions
-              </Link>
-              <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors font-medium">
-                Tarifs
-              </Link>
             </nav>
             <div className="flex items-center gap-2 md:gap-3">
               {user ? (
@@ -56,14 +47,6 @@ export default async function MarketingLayout({
                   </Link>
                 </>
               )}
-            </div>
-          </div>
-          {/* Mobile nav strip */}
-          <div className="md:hidden border-t">
-            <div className="px-5 flex gap-6 py-2 overflow-x-auto text-sm">
-              <Link href="/tools/generateur-chapitres-youtube" className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Chapitres</Link>
-              <Link href="/tools/generateur-description-youtube" className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Descriptions</Link>
-              <Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Tarifs</Link>
             </div>
           </div>
         </div>

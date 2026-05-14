@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { runGenerationPipeline } from "@/lib/llm/pipeline";
 import { extractVideoId, fetchTranscript, fetchVideoMetadata } from "@/lib/youtube/transcript";
 import { PLANS, type PlanKey } from "@/lib/stripe/client";
+import { sendQuotaEmail } from "@/lib/email";
 
 const schema = z.object({
   videoUrl: z.string().url(),
@@ -132,12 +133,16 @@ export async function POST(req: NextRequest) {
     }
 
     // Increment usage counter
+    const newCount = profile.generations_used_this_month + 1;
     await supabase
       .from("users")
-      .update({
-        generations_used_this_month: profile.generations_used_this_month + 1,
-      })
+      .update({ generations_used_this_month: newCount })
       .eq("id", user.id);
+
+    // Send quota email when last generation is consumed
+    if (newCount >= limit && user.email) {
+      sendQuotaEmail(user.email, plan, limit).catch(console.error);
+    }
 
     // Track usage event
     await supabase.from("usage_events").insert({

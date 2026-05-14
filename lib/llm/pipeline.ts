@@ -74,7 +74,7 @@ function estimateCostEuros(inputTokens: number, outputTokens: number): number {
 export async function runGenerationPipeline(
   transcript: string,
   metadata: VideoMetadata,
-  plan: "free" | "creator" = "free",
+  plan: "free" | "creator" | "pro" = "free",
   allowedLanguages: string[] = ["fr", "en"]
 ): Promise<GenerationResult> {
   const startTime = Date.now();
@@ -82,7 +82,7 @@ export async function runGenerationPipeline(
   let totalOutputTokens = 0;
 
   const model =
-    plan === "creator"
+    plan === "pro"
       ? "claude-sonnet-4-6"
       : "claude-haiku-4-5-20251001";
 

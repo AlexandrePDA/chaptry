@@ -17,14 +17,25 @@ export const PLANS = {
   },
   creator: {
     name: "Creator",
-    generationsPerMonth: 100,
-    historyDays: -1, // illimité
+    generationsPerMonth: 30,
+    historyDays: 30,
     watermark: false,
     languages: ["fr", "en"] as string[],
-    priceMonthly: 1400, // centimes
+    priceMonthly: 1400,
     priceYearly: 12000, // 10€/mois
     stripePriceMonthly: process.env.STRIPE_PRICE_CREATOR_MONTHLY!,
     stripePriceYearly: process.env.STRIPE_PRICE_CREATOR_YEARLY!,
+  },
+  pro: {
+    name: "Pro",
+    generationsPerMonth: 150,
+    historyDays: -1,
+    watermark: false,
+    languages: ["fr", "en", "de", "es"] as string[],
+    priceMonthly: 2900,
+    priceYearly: 24000, // 20€/mois
+    stripePriceMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY!,
+    stripePriceYearly: process.env.STRIPE_PRICE_PRO_YEARLY!,
   },
 } as const;
 
@@ -33,7 +44,7 @@ export type PlanKey = keyof typeof PLANS;
 export async function createCheckoutSession(
   userId: string,
   email: string,
-  plan: "creator",
+  plan: "creator" | "pro",
   billing: "monthly" | "yearly"
 ): Promise<string> {
   const planConfig = PLANS[plan];

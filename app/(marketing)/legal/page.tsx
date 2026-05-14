@@ -14,7 +14,7 @@ export default function LegalPage() {
         <h2 className="text-lg font-semibold mb-3">Éditeur</h2>
         <p className="text-muted-foreground text-sm">
           Chaptry est édité par Alexandre Pires, auto-entrepreneur.<br />
-          Email : <a href="mailto:contact@chaptry.com" className="text-primary">contact@chaptry.com</a>
+          Email : <a href="mailto:dev.dakaprod@gmail.com" className="text-primary">dev.dakaprod@gmail.com</a>
         </p>
       </section>
 
@@ -37,7 +37,7 @@ export default function LegalPage() {
       <section>
         <h2 className="text-lg font-semibold mb-3">Contact</h2>
         <p className="text-muted-foreground text-sm">
-          Pour toute question : <a href="mailto:contact@chaptry.com" className="text-primary">contact@chaptry.com</a>
+          Pour toute question : <a href="mailto:dev.dakaprod@gmail.com" className="text-primary">dev.dakaprod@gmail.com</a>
         </p>
       </section>
     </div>

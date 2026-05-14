@@ -33,7 +33,7 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-base font-semibold text-foreground mb-3">Vos droits (RGPD)</h2>
-          <p>Vous pouvez à tout moment exporter ou supprimer vos données depuis <strong>Paramètres → Données personnelles</strong>, ou en contactant <a href="mailto:contact@chaptry.com" className="text-primary">contact@chaptry.com</a>.</p>
+          <p>Vous pouvez à tout moment exporter ou supprimer vos données depuis <strong>Paramètres → Données personnelles</strong>, ou en contactant <a href="mailto:dev.dakaprod@gmail.com" className="text-primary">dev.dakaprod@gmail.com</a>.</p>
         </section>
 
         <section>
